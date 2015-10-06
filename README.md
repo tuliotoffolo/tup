@@ -2,7 +2,7 @@
 
 ## Traveling Umpire Problem Solver
 
-Written by Túlio Toffolo and Tony Wouters.
+Written by Túlio Toffolo and Tony Wauters.
 
 (C) Copyright 2015, by CODeS Research Group, KU Leuven. All rights reserved.
 More information: http://gent.cs.kuleuven.be/tup
@@ -18,8 +18,8 @@ Alternatively, you can download the latest binary (jar) file in the *bin* folder
 
 Usage examples:
 
-- java -jar tup.jar umps_14.txt 7 3 umps_14_7_3.sol
-- java -jar tup.jar umps_14.txt 7 3 umps_14_7_3.sol -threads 8 -time 4320 -ub 164440 
+- java -jar tup.jar umps14.txt 7 3 umps14_7_3.sol
+- java -jar tup.jar umps14.txt 7 3 umps14_7_3.sol -threads 8 -time 4320 -ub 164440 
 
 ## Latest improvements
 
