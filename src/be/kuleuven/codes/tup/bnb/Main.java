@@ -29,7 +29,7 @@ public class Main {
     public static final String VERSION = "oct-01";
 
     private static int ub = Integer.MAX_VALUE;
-    private static int maxThreads = Runtime.getRuntime().availableProcessors();
+    private static int maxThreads = 2;//Runtime.getRuntime().availableProcessors();
     private static long timeLimitMillis = 72 * 60 * 60 * 1000;
     private static boolean useTimeWindows = true;
 
@@ -86,7 +86,7 @@ public class Main {
      * @param args the arguments.
      */
     public static void readOptions(String[] args) {
-        int index = 4;
+        int index = 3;
 
         while (index < args.length - 1) {
             String option = args[++index];
