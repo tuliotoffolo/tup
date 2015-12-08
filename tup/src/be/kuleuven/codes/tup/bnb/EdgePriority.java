@@ -77,7 +77,7 @@ public class EdgePriority {
                 PriorityQueue<PairInt> orders = new PriorityQueue<>(problem.nUmpires, (a, b) -> a.second - b.second);
                 for (int j = 0; j < problem.nUmpires; j++) {
                     int secondGame = (r + 1) * problem.nUmpires + j;
-                    if (problem.games[firstGame][0] != problem.games[secondGame][0])
+                    if (problem.q1 == 1 || problem.games[firstGame][0] != problem.games[secondGame][0])
                         orders.add(new PairInt(secondGame, problem.distGames[firstGame][secondGame]));
                 }
 
