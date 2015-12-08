@@ -43,6 +43,8 @@ public class LowerBound {
             bounds.matching[i] = calculateMatching(i);
             bounds.set(i, i + 1, bounds.matching[i]);
         }
+
+        solver.printStatus("lb", solver.getNNodes(), getLB(0), solver.getUB(), "");
     }
 
     /**
