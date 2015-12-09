@@ -1,6 +1,5 @@
 package be.kuleuven.codes.tup.bnb;
 
-import be.kuleuven.codes.tup.bnb.model.*;
 import be.kuleuven.codes.tup.heuristic.*;
 import be.kuleuven.codes.tup.model.*;
 import be.kuleuven.codes.tup.model.solution.*;
