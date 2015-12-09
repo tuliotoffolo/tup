@@ -107,7 +107,7 @@ public class BranchAndBoundPartial {
 
         // running branch-and-bound
         SimplePartialSolution initialX = new SimplePartialSolution(problem, firstRound, lastRound);
-        long nNodes = recurseSequential(initialX, 0, firstRound + 1);
+        long nNodes = recurse(initialX, 0, firstRound + 1);
         nodeCounter.getAndAdd(nNodes);
 
         // waiting the completion of all tasks
@@ -147,12 +147,12 @@ public class BranchAndBoundPartial {
                     SimplePartialSolution xCopy = x.clone();
                     futurePool.add(threadExecutor.submit(() -> {
                         Thread.currentThread().setName(String.format("lb(%d,%d) :: recurse(%d)\n", firstRound, lastRound, node + 1));
-                        long nNodes = umpire == m - 1 ? recurse(xCopy, 0, round + 1) : recurse(xCopy, umpire + 1, round);
+                        long nNodes = umpire == m - 1 ? recurseSequential(xCopy, 0, round + 1) : recurseSequential(xCopy, umpire + 1, round);
                         nodeCounter.getAndAdd(nNodes);
                     }));
                 }
                 else {
-                    nodes += umpire == m - 1 ? recurseSequential(x, 0, round + 1) : recurseSequential(x, umpire + 1, round);
+                    nodes += umpire == m - 1 ? recurse(x, 0, round + 1) : recurse(x, umpire + 1, round);
                 }
             }
             x.unsetColor(node);
@@ -207,7 +207,7 @@ public class BranchAndBoundPartial {
      * the current moment and false otherwise.
      */
     private boolean canCreateNewThread(int node) {
-        return node < lastGame - m && threadExecutor.hasEmptySlot();
+        return node == m * (firstRound + 2) && threadExecutor.hasEmptySlot();
     }
 
     /**

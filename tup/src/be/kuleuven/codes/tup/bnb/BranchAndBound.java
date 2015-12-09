@@ -118,9 +118,10 @@ public class BranchAndBound {
         this.lowerbound = new LowerBound(this);
         Thread lowerBoundThread = new Thread(() -> {
             Thread.currentThread().setName("LowerBound");
-            int lbMaxThreads = maxThreads - threadExecutor.getCorePoolSize();
+            int lbMaxThreads = maxThreads - threadExecutor.getCorePoolSize() - 1;
             lowerbound.solve(lbMaxThreads, maxTimeMillis, useTimeWindows);
-            threadExecutor.setCorePoolSize(threadExecutor.getCorePoolSize() + lbMaxThreads);
+            threadExecutor.setCorePoolSize(threadExecutor.getCorePoolSize() + lbMaxThreads + 1);
+            threadExecutor.setMaximumPoolSize(threadExecutor.getCorePoolSize());
         });
         lowerBoundThread.start();
 
@@ -181,12 +182,12 @@ public class BranchAndBound {
                     SimpleSolution xCopy = x.clone();
                     futurePool.add(threadExecutor.submit(() -> {
                         Thread.currentThread().setName(String.format("bnb :: recurse(%d)\n", node + 1));
-                        long nNodes = umpire == m - 1 ? recurse(xCopy, 0, round + 1) : recurse(xCopy, umpire + 1, round);
+                        long nNodes = umpire == m - 1 ? recurseSequential(xCopy, 0, round + 1) : recurseSequential(xCopy, umpire + 1, round);
                         nodeCounter.getAndAdd(nNodes);
                     }));
                 }
                 else {
-                    nodes += umpire == m - 1 ? recurseSequential(x, 0, round + 1) : recurseSequential(x, umpire + 1, round);
+                    nodes += umpire == m - 1 ? recurse(x, 0, round + 1) : recurse(x, umpire + 1, round);
                 }
             }
             x.unsetColor(node);
@@ -248,7 +249,7 @@ public class BranchAndBound {
      * the current moment and false otherwise.
      */
     private boolean canCreateNewThread(int node) {
-        return node <= m * 6 || (node <= n - m * 2 && threadExecutor.hasEmptySlot());
+        return node == m * 2 && threadExecutor.hasEmptySlot();
     }
 
     /**

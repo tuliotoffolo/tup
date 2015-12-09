@@ -84,7 +84,7 @@ public class LowerBound {
      *                       should use time windows and false otherwise.
      */
     public void solve(int maxThreads, long maxLimitMillis, boolean useTimeWindows) {
-        this.threadExecutor = maxThreads > 1 ? new ThreadExecutor(maxThreads) : new SequentialExecutor();
+        this.threadExecutor = maxThreads > 0 ? new ThreadExecutor(maxThreads) : new SequentialExecutor();
 
         FuturePool futurePool = new FuturePool(threadExecutor);
         List<Runnable> threads = new LinkedList<>();
@@ -95,10 +95,10 @@ public class LowerBound {
 
                 final int firstRound = problem.nRounds - 1 - size;
                 final int lastRound = problem.nRounds - 1;
-                threads.add(() -> {
-                    Thread.currentThread().setName(String.format("lb(%d,%d) :: recurse()", firstRound, lastRound));
-                    solveSubproblem(maxLimitMillis, firstRound, lastRound);
-                });
+                //threads.add(() -> {
+                //    Thread.currentThread().setName(String.format("lb(%d,%d) :: recurse()", firstRound, lastRound));
+                solveSubproblem(maxLimitMillis, firstRound, lastRound);
+                //});
             }
         }
 
@@ -121,10 +121,10 @@ public class LowerBound {
                         cache.add(r1 + "," + end);
                         final int firstRound = r1;
                         final int lastRound = end;
-                        threads.add(() -> {
-                            Thread.currentThread().setName(String.format("lb(%d,%d) :: recurse()", firstRound, lastRound));
-                            solveSubproblem(maxLimitMillis, firstRound, lastRound);
-                        });
+                        //threads.add(() -> {
+                        //    Thread.currentThread().setName(String.format("lb(%d,%d) :: recurse()", firstRound, lastRound));
+                        solveSubproblem(maxLimitMillis, firstRound, lastRound);
+                        //});
                     }
                     if (start == 0) break;
                     end = start;

@@ -1,7 +1,5 @@
 package be.kuleuven.codes.tup.thread;
 
-import sun.reflect.generics.reflectiveObjects.*;
-
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
@@ -15,7 +13,7 @@ public class ThreadExecutor extends ThreadPoolExecutor {
     }
 
     public boolean hasEmptySlot() {
-        return counter.get() < getCorePoolSize();
+        return counter.get() < getCorePoolSize()*10;
     }
 
     @Override public Future<?> submit(Runnable task) {
@@ -23,7 +21,7 @@ public class ThreadExecutor extends ThreadPoolExecutor {
     }
 
     @Override public <T> Future<T> submit(Callable<T> task) {
-        throw new NotImplementedException();
+        throw new Error("Method is not implemented");
     }
 
     @Override public <T> Future<T> submit(Runnable task, T result) {
