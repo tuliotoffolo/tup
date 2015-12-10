@@ -14,16 +14,29 @@ Please address all contributions, suggestions, and inquiries to the current proj
 The package be.kuleuven.codes.tup includes the solver source code.
 
 The class with the main procedure is at be.kuleuven.codes.tup.bnb.Main.
-Alternatively, you can download the latest binary (jar) file in the *bin* folder.
 
-Usage examples:
+## Getting Started
 
-- java -jar tup.jar umps14.txt 7 3 umps14_7_3.sol
-- java -jar tup.jar umps14.txt 7 3 umps14_7_3.sol -threads 8 -time 4320 -ub 164440 
+This repository contains stochastic local search (SLS) methods to address the unrelated parallel machine scheduling problem (UPMSP) with sequence dependent setup times.
+
+### Compiling the code
+
+This project uses [gradle](http://gradle.org "Gradle").
+To generate the binaries, just run:
+
+- gradle build
+
+The jar file (tup.jar) will be generated.
+
+### Usage examples:
+
+- java -jar tup.jar umps14.txt 7 3 14_7_3.sol
+- java -jar tup.jar umps14.txt 7 3 14_7_3.sol -threads 8 -time 4320 -ub 164440 
 
 ## Latest improvements
 
-The current version includes (beta) support for parallel execution. The parameter "-threads N" indicates how many threads should be used by the parallel branch and bound. 
+The current version includes (beta) support for parallel execution. 
+The parameter "-threads N" indicates how many threads should be used by the parallel branch and bound.
 
 ## Requirements
 
