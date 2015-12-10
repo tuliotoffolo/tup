@@ -12,12 +12,7 @@ Please address all contributions, suggestions, and inquiries to the current proj
 ## Getting Started
 
 The package be.kuleuven.codes.tup includes the solver source code.
-
 The class with the main procedure is at be.kuleuven.codes.tup.bnb.Main.
-
-## Getting Started
-
-This repository contains stochastic local search (SLS) methods to address the unrelated parallel machine scheduling problem (UPMSP) with sequence dependent setup times.
 
 ### Compiling the code
 
