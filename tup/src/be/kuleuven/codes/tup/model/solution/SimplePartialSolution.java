@@ -89,7 +89,7 @@ public class SimplePartialSolution {
         int idx = node - firstGame;
         int round = problem.gameToRound[node] - firstRound;
 
-        if (x[idx] >= 0) {
+        if (x[idx] >= 0 && round > 0) {
             cost -= problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
 
             colorsRounds[x[idx]][round] = -1;
@@ -98,7 +98,8 @@ public class SimplePartialSolution {
         x[idx] = color;
         colorsRounds[x[idx]][round] = node;
 
-        cost += problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+        if (round > 0)
+            cost += problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
     }
 
     public void unsetColor(int node) {

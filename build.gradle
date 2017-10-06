@@ -2,20 +2,14 @@ subprojects {
     apply plugin: 'idea'
     apply plugin: 'java'
 
-    sourceSets {
-        main {
-            java {
-                srcDir 'src'
-            }
-        }
-    }
+    sourceSets.main.java { srcDir 'src' }
 }
 
 project(':tup') {
     dependencies {
+        compile files('lib/jads.jar')
         //compile files('lib/cplex.jar')
         //compile files('lib/gurobi.jar')
-        //compile files('lib/jmpi.jar')
     }
     jar {
         destinationDir = file("$rootDir")
@@ -27,5 +21,22 @@ project(':tup') {
                 it.isDirectory() ? it : zipTree(it)
             }
         }
+    }
+    task heuristic(type: Jar) {
+        from sourceSets.main.output
+        archiveName = "tup-heuristic.jar"
+        dependsOn compileJava
+        destinationDir = file("$rootDir")
+        manifest {
+            attributes 'Main-Class': 'be.kuleuven.codes.tup.heuristic_decomp.Main'
+        }
+        from {
+            configurations.runtime.collect {
+                it.isDirectory() ? it : zipTree(it)
+            }
+        }
+    }
+    build.doLast {
+        heuristic.execute()
     }
 }

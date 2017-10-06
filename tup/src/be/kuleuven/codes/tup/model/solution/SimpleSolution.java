@@ -21,6 +21,7 @@ public class SimpleSolution {
     public final int firstGame, lastGame;
 
     public int cost;
+    public int costRound[];
 
 
     public SimpleSolution(Problem problem) {
@@ -37,6 +38,7 @@ public class SimpleSolution {
 
         this.x = new int[lastGame - firstGame + 1];
         this.cost = 0;
+        this.costRound = new int[problem.nRounds];
 
         this.colorsRounds = new int[problem.nUmpires][lastRound - firstRound + 1];
         this.colorsLocations = new int[problem.nUmpires][problem.nTeams];
@@ -55,6 +57,17 @@ public class SimpleSolution {
         }
     }
 
+    public SimpleSolution(Solution solution) {
+        this(solution.problem, 0, solution.problem.nRounds - 1);
+
+        for (int r = 0; r < problem.nRounds; r++) {
+            for (int u = 0; u < problem.nUmpires; u++) {
+                int game = solution.assignment[r][u];
+                setColor(game, u);
+            }
+        }
+    }
+
     private SimpleSolution(SimpleSolution solution) {
         this.problem = solution.problem;
         this.firstRound = solution.firstRound;
@@ -64,6 +77,7 @@ public class SimpleSolution {
 
         this.x = solution.x.clone();
         this.cost = solution.cost;
+        this.costRound = solution.costRound.clone();
 
         this.colorsRounds = new int[problem.nUmpires][lastRound - firstRound + 1];
         this.colorsLocations = new int[problem.nUmpires][problem.nTeams];
@@ -118,8 +132,9 @@ public class SimpleSolution {
         int idx = node - firstGame;
         int round = problem.gameToRound[node] - firstRound;
 
-        if (x[idx] >= 0) {
+        if (x[idx] >= 0 && round > 0) {
             cost -= problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+            costRound[round] -= problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
             if (--colorsLocations[x[idx]][problem.games[colorsRounds[x[idx]][round]][0] - 1] == 0)
                 colorsLocationsCount[x[idx]]--;
 
@@ -131,15 +146,19 @@ public class SimpleSolution {
         if (++colorsLocations[x[idx]][problem.games[node][0] - 1] == 1)
             colorsLocationsCount[x[idx]]++;
 
-        cost += problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+        if (round > 0) {
+            cost += problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+            costRound[round] += problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+        }
     }
 
     public void unsetColor(int node) {
         int idx = node - firstGame;
+        int round = problem.gameToRound[node] - firstRound;
 
-        if (x[idx] >= 0) {
-            int round = problem.gameToRound[node] - firstRound;
+        if (x[idx] >= 0 && round > 0) {
             cost -= problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
+            costRound[round] -= problem.distGames[colorsRounds[x[idx]][round - 1]][colorsRounds[x[idx]][round]];
             if (--colorsLocations[x[idx]][problem.games[colorsRounds[x[idx]][round]][0] - 1] == 0)
                 colorsLocationsCount[x[idx]]--;
 

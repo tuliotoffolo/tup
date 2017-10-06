@@ -33,7 +33,7 @@ public class Solution {
 
         for (int round = 0; round < problem.nRounds; round++) {
             assignment[round] = Arrays.copyOf(sol.assignment[round],
-                    sol.assignment[round].length);
+              sol.assignment[round].length);
         }
 
         if (sol.scoreInitiallyCalculated) {
@@ -44,7 +44,7 @@ public class Solution {
             this.visits = new int[problem.nRounds][];
             for (int ump = 0; ump < problem.nUmpires; ump++) {
                 this.visits[ump] = Arrays.copyOf(sol.visits[ump],
-                        sol.visits[ump].length);
+                  sol.visits[ump].length);
             }
             this.umpireDistances = Arrays.copyOf(sol.umpireDistances, sol.umpireDistances.length);
 
@@ -53,11 +53,11 @@ public class Solution {
             for (int round = 0; round < problem.nRounds; round++) {
                 for (int umpire = 0; umpire < problem.nUmpires; umpire++) {
                     this.homeVisits[round][umpire] = Arrays.copyOf(
-                            sol.homeVisits[round][umpire],
-                            sol.homeVisits[round][umpire].length);
+                      sol.homeVisits[round][umpire],
+                      sol.homeVisits[round][umpire].length);
                     this.teamVisits[round][umpire] = Arrays.copyOf(
-                            sol.teamVisits[round][umpire],
-                            sol.teamVisits[round][umpire].length);
+                      sol.teamVisits[round][umpire],
+                      sol.teamVisits[round][umpire].length);
                 }
             }
             scoreInitiallyCalculated = sol.scoreInitiallyCalculated;
@@ -72,8 +72,8 @@ public class Solution {
             scoreInitiallyCalculated = true;
         }
         return travelDistance + Constants.penaltyWeight * homeVisitViolations
-                + Constants.penaltyWeight * consecutiveHomeVisitViolations
-                + Constants.penaltyWeight * consecutiveTeamSeenViolations;
+          + Constants.penaltyWeight * consecutiveHomeVisitViolations
+          + Constants.penaltyWeight * consecutiveTeamSeenViolations;
     }
 
     private void beforeValueChanges(int umpire, int round) {
@@ -95,7 +95,7 @@ public class Solution {
         }
 
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q1); currentRound++) {
+          round + problem.q1); currentRound++) {
             int value = --homeVisits[currentRound][umpire][venue];
             if (value == 1) {
                 consecutiveHomeVisitViolations--;
@@ -103,7 +103,7 @@ public class Solution {
         }
 
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q2); currentRound++) {
+          round + problem.q2); currentRound++) {
             int value = --teamVisits[currentRound][umpire][venue];
             if (value == 1) {
                 consecutiveTeamSeenViolations--;
@@ -136,7 +136,7 @@ public class Solution {
         }
 
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q1); currentRound++) {
+          round + problem.q1); currentRound++) {
             int value = ++homeVisits[currentRound][umpire][venue];
             if (value == 2) {
                 consecutiveHomeVisitViolations++;
@@ -144,7 +144,7 @@ public class Solution {
         }
 
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q2); currentRound++) {
+          round + problem.q2); currentRound++) {
             int value = ++teamVisits[currentRound][umpire][venue];
             if (value == 2) {
                 consecutiveTeamSeenViolations++;
@@ -197,11 +197,11 @@ public class Solution {
                 int currentGame = assignment[round][ump];
 
                 for (int slot = round; slot < Math.min(problem.nRounds, round
-                        + problem.q1); slot++) {
+                  + problem.q1); slot++) {
                     homeVisits[slot][ump][problem.games[currentGame][0] - 1]++;
                 }
                 for (int slot = round; slot < Math.min(problem.nRounds, round
-                        + problem.q2); slot++) {
+                  + problem.q2); slot++) {
                     teamVisits[slot][ump][problem.games[currentGame][0] - 1]++;
                     teamVisits[slot][ump][problem.games[currentGame][1] - 1]++;
                 }
@@ -226,7 +226,7 @@ public class Solution {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        Solution that = (Solution ) o;
+        Solution that = ( Solution ) o;
 
         if (!Arrays.equals(assignment, that.assignment))
             return false;
@@ -242,11 +242,11 @@ public class Solution {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Solution [travelDistance="
-                + travelDistance + ", homeVisitViolations="
-                + homeVisitViolations + ", consecutiveHomeVisitViolations="
-                + consecutiveHomeVisitViolations
-                + ", consecutiveTeamSeenViolations="
-                + consecutiveTeamSeenViolations + "]");
+          + travelDistance + ", homeVisitViolations="
+          + homeVisitViolations + ", consecutiveHomeVisitViolations="
+          + consecutiveHomeVisitViolations
+          + ", consecutiveTeamSeenViolations="
+          + consecutiveTeamSeenViolations + "]");
         sb.append("\n");
         for (int i = 1; i <= problem.nUmpires; i++) {
             sb.append("-" + i + "-");
@@ -263,7 +263,7 @@ public class Solution {
         for (int round = 0; round < problem.nRounds; round++) {
             for (int i = 0; i < problem.nUmpires; i++) {
                 for (int g = round * problem.nUmpires; g < (round + 1)
-                        * problem.nUmpires; g++) {
+                  * problem.nUmpires; g++) {
                     if (assignments[g] - 1 == i) {
                         sb.append(" " + Arrays.toString(problem.games[g]) + " ");
 
@@ -296,10 +296,10 @@ public class Solution {
         for (int round = 0; round < problem.nRounds; round++) {
             for (int i = 0; i < problem.nUmpires; i++) {
                 for (int g = round * problem.nUmpires; g < (round + 1)
-                        * problem.nUmpires; g++) {
+                  * problem.nUmpires; g++) {
                     if (assignments[g] - 1 == i) {
                         System.out.print(" "
-                                + Arrays.toString(problem.games[g]) + " ");
+                          + Arrays.toString(problem.games[g]) + " ");
 
                     }
                 }
@@ -355,7 +355,7 @@ public class Solution {
 
         int extraConsecutiveHomeVisitViolations = 0;
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q1); currentRound++) {
+          round + problem.q1); currentRound++) {
             int value = homeVisits[currentRound][umpire][currentVenue] - 1;
             if (value == 1) {
                 extraConsecutiveHomeVisitViolations--;
@@ -368,7 +368,7 @@ public class Solution {
 
         int extraConsecutiveTeamSeenViolations = 0;
         for (int currentRound = round; currentRound < Math.min(problem.nRounds,
-                round + problem.q2); currentRound++) {
+          round + problem.q2); currentRound++) {
 
             int value = teamVisits[currentRound][umpire][currentVenue] - 1;
             if (value == 1) {
@@ -390,9 +390,9 @@ public class Solution {
         }
 
         return extraHomeVisitViolations * Constants.penaltyWeight
-                + extraConsecutiveHomeVisitViolations * Constants.penaltyWeight
-                + extraConsecutiveTeamSeenViolations * Constants.penaltyWeight
-                + newDistance - umpireDistances[umpire];
+          + extraConsecutiveHomeVisitViolations * Constants.penaltyWeight
+          + extraConsecutiveTeamSeenViolations * Constants.penaltyWeight
+          + newDistance - umpireDistances[umpire];
     }
 
     public void calculateScore() {
