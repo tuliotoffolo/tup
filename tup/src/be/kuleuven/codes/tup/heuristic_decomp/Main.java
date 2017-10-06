@@ -7,6 +7,13 @@ import be.kuleuven.codes.tup.model.solution.*;
 import java.io.*;
 import java.util.*;
 
+/**
+ * This class implements the Main method that executes the decomposition-based
+ * heuristic algorithm for TUP. Additional functions are included to print the
+ * right usage of the solver.
+ *
+ * @author Tulio Toffolo
+ */
 public class Main {
 
     /**

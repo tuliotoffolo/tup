@@ -7,6 +7,12 @@ import jads.mp.solvers.*;
 
 import java.util.*;
 
+/**
+ * This class implements a partial IP for the TUP. Note that the JADS framework
+ * is utilized (https://github.com/tuliotoffolo/jads).
+ *
+ * @author Tulio Toffolo
+ */
 public class IPPartial {
 
     public final Problem problem;

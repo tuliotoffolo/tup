@@ -3,6 +3,12 @@ package be.kuleuven.codes.tup.heuristic_decomp;
 import be.kuleuven.codes.tup.model.*;
 import be.kuleuven.codes.tup.model.solution.*;
 
+/**
+ * This class implements the decomposition-based heuristic included in the
+ * thesis of Tulio Toffolo.
+ *
+ * @author Tulio Toffolo
+ */
 public class Heuristic {
 
     public final Problem problem;
