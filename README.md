@@ -72,7 +72,7 @@ Examples:
 ## Requirements
 
 Java 1.8 is required.  
-The decomposition-based heuristic requires cplex or gurobi. Make sure the file cplex.jar or gurobi.jar are in your classpath before executing the code.
+The decomposition-based heuristic requires cplex or gurobi. Make sure either cplex.jar or gurobi.jar is on your classpath before executing the code.
 
 ## Questions?
 
